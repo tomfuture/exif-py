@@ -29,6 +29,14 @@ def make_string(seq):
     return string
 
 
+def force_str(val):
+    if isinstance(val, str):
+        return val
+    if isinstance(val, unicode):
+        return val.encode("utf8", "ignore")
+    return str(val)
+
+
 def make_string_uc(seq):
     """
     Special version to deal with the code in the first 8 bytes of a user comment.

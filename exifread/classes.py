@@ -2,7 +2,7 @@ import struct
 import re
 
 from .exif_log import get_logger
-from .utils import make_string, s2n_motorola, s2n_intel, Ratio
+from .utils import force_str, s2n_motorola, s2n_intel, Ratio
 from .tags import *
 
 logger = get_logger()
@@ -231,14 +231,14 @@ class ExifHeader:
 
                 # now 'values' is either a string or an array
                 if count == 1 and field_type != 2:
-                    printable = make_string(values[0])
+                    printable = force_str(values[0])
                 elif count > 50 and len(values) > 20 and not isinstance(values, basestring) :
                     if self.truncate_tags :
-                        printable = make_string(values[0:20])[0:-1] + ", ... ]"
+                        printable = force_str(values[0:20])[0:-1] + ", ... ]"
                     else:
-                        printable = make_string(values[0:-1])
+                        printable = force_str(values[0:-1])
                 else:
-                    printable = make_string(values)
+                    printable = force_str(values)
                 # compute printable version of values
                 if tag_entry:
                     # optional 2nd tag element is present
